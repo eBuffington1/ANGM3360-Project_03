@@ -5,15 +5,25 @@ using static UnityEngine.GraphicsBuffer;
 
 public class UnitMovement : MonoBehaviour
 {
-    private Collider _collider;
-    Rigidbody _rb;
-
-    [SerializeField] GameObject _waypointObject;
-    private GameObject _waypoint;
-
+    [Header("Selected Movement Module")]
     [SerializeField] float speed = 1.0f;
     [SerializeField] float distLeniency = 0.5f;
 
+    [Header("Selected Color Change Module")]
+    [SerializeField] public bool _colorEnabled = true;
+    [SerializeField] public Material _unselectedMaterial = null;
+    [SerializeField] public Material _selectedMaterial = null;
+
+    [Header("Show waypoint Module")]
+    [SerializeField] public bool _waypointEnabled = true;
+    [SerializeField] GameObject _waypointObject = null;
+
+
+    private Collider _collider;
+    Rigidbody _rb;
+    Material _material;
+
+    private GameObject _waypoint;
     private bool _selected = false;
     private bool _inAction = false;
     private float _distCheck;
@@ -92,7 +102,11 @@ public class UnitMovement : MonoBehaviour
                 transform.LookAt(_targetPos);
 
                 Destroy(_waypoint);
-                _waypoint = Instantiate(_waypointObject, _targetPos, transform.rotation);
+                if(_waypointEnabled == true)
+                {
+                    _waypoint = Instantiate(_waypointObject, _targetPos, transform.rotation);
+                }
+                    
             }
 
             _inAction = true;
@@ -115,6 +129,19 @@ public class UnitMovement : MonoBehaviour
         else
         {
             _rb.velocity = transform.forward * 0;
+        }
+
+        //Color change on selected
+        if (_colorEnabled == true)
+        {
+            if (_selected == true)
+            {
+                GetComponent<Renderer>().material.CopyPropertiesFromMaterial(_selectedMaterial);
+            }
+            else
+            {
+                GetComponent<Renderer>().material.CopyPropertiesFromMaterial(_unselectedMaterial);
+            }
         }
     }
 }

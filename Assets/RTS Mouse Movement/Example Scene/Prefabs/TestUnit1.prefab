@@ -113,10 +113,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4733bd70abe74134ca2c3e1069e612ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypointObject: {fileID: 2136287235933368592, guid: 550ccb21f40420340a79ae4f8e70c7d4,
-    type: 3}
   speed: 1
   distLeniency: 1
+  _colorEnabled: 1
+  _unselectedMaterial: {fileID: 2100000, guid: b4ab4525b6fbcc7449a4bb05b92de4b3, type: 2}
+  _selectedMaterial: {fileID: 2100000, guid: 79552559dcbf35f4e9cacc365e019104, type: 2}
+  _waypointEnabled: 0
+  _waypointObject: {fileID: 2136287235933368592, guid: 550ccb21f40420340a79ae4f8e70c7d4,
+    type: 3}
 --- !u!54 &6806252659944788448
 Rigidbody:
   m_ObjectHideFlags: 0
