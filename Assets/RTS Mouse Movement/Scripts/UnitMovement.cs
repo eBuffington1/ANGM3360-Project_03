@@ -9,6 +9,7 @@ public class UnitMovement : MonoBehaviour
     Rigidbody _rb;
 
     [SerializeField] float speed = 1.0f;
+    [SerializeField] float distLeniency = 1.0f;
 
     private bool _selected = false;
     private bool _inAction = false;
@@ -79,24 +80,36 @@ public class UnitMovement : MonoBehaviour
                 Debug.Log(hit.point);
 
                 Vector3 _targetPos = new Vector3(_targetX,
-                                                _thisY,
+                                                1,
                                                 _targetZ);
                 transform.LookAt(_targetPos);
             }
 
+            Debug.Log("Active");
             _inAction = true;
         }
 
         // Check if at target destination
-        if((transform.position.x == _targetX) && (transform.position.z == _targetZ))
+        /*if((this.transform.position.x == _targetX) && (this.transform.position.z == _targetZ))
         {
+            Debug.Log("Inactive");
+            _inAction = false;
+        }*/
+
+        if(Vector3.Distance(transform.position, _targetPos) < distLeniency)
+        {
+            Debug.Log("Inactive");
             _inAction = false;
         }
 
-        // Move to target destination if active
-        if(_inAction == true)
+            // Move to target destination if active
+            if (_inAction == true)
         {
             _rb.velocity = transform.forward * speed;
+        }
+        else
+        {
+            _rb.velocity = transform.forward * 0;
         }
     }
 }
